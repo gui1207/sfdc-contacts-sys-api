@@ -1,0 +1,71 @@
+#%RAML 1.0
+title: SFDC Contatcs Sys API
+version: v1
+
+protocols:
+  - HTTPS
+
+mediaType: 
+- application/json
+
+types:
+  Contact:
+    properties:
+      firstName:
+      lastName:
+      email:
+      address?:
+        properties:
+          address:
+          city:
+          zipCode:
+          country:
+      phone?:
+      dateOfBirth?: date-only 
+
+  ContactResponse:
+    type: Contact
+    properties:
+      id:
+  SuccessResponse:
+    properties:
+      id:   
+
+/contacts:
+  post:
+    body:
+      application/json:
+        type: Contact
+        example: !include examples/contact.json
+        
+    responses:
+      201: 
+        body:
+          application/json:
+            type: SuccessResponse
+            example: !include  examples/success-response.json
+    
+  patch:
+    body:
+      application/json:
+        type: Contact
+        example: !include examples/contact.json
+
+    responses:
+      200:
+        body:
+          application/json:
+            type: SuccessResponse
+            example: !include examples/success-response.json             
+  
+  get:
+    queryParameters:
+      email:
+        minLength: 1
+    responses:
+      200:
+        body:
+          application/json:
+            type: ContactResponse
+            example: !include examples/customer-response.json
+              

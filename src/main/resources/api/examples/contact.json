@@ -1,0 +1,13 @@
+{
+  "firstName": "John",
+  "lastName": "Smith",
+  "email": "john.smith@wow.com",
+  "address": {
+    "address": "217, Main Street",
+    "city": "New York",
+    "zipCode": "9823-0",
+    "country": "US"
+  },
+  "phone": "+1 123 43234",
+  "dateOfBirth": "1989-09-01"
+}

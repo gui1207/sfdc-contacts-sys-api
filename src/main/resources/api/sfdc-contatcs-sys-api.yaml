@@ -1,0 +1,179 @@
+openapi: 3.0.0
+info:
+  title: Salesforce System API
+  contact: {}
+  version: 'v1'
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
+paths:
+  /contacts:
+    post:
+      tags:
+      - contacts
+      summary: Contacts_POST
+      operationId: Contacts_POST
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Contact'
+            example:
+              firstName: John
+              lastName: Smith
+              email: john.smith@wow.com
+              address:
+                address: 217, Main Street
+                city: New York
+                zipCode: 9823-0
+                country: US
+              phone: +1 123 43234
+              dateOfBirth: 1989-09-01
+        required: true
+      responses:
+        '201':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+              example:
+                id: 3d510280-d1dd-455e-acf8-24dcfed2a548
+      deprecated: false
+    patch:
+      tags:
+      - contacts
+      summary: Contacts_PATCH
+      operationId: Contacts_PATCH
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Contact'
+            example:
+              firstName: John
+              lastName: Smith
+              email: john.smith@wow.com
+              address:
+                address: 217, Main Street
+                city: New York
+                zipCode: 9823-0
+                country: US
+              phone: +1 123 43234
+              dateOfBirth: 1989-09-01
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+              example:
+                id: 3d510280-d1dd-455e-acf8-24dcfed2a548
+      deprecated: false
+    get:
+      tags:
+      - contacts
+      summary: Contacts_GET
+      operationId: Contacts_GET
+      parameters:
+      - name: email
+        in: query
+        description: ''
+        required: true
+        style: form
+        explode: true
+        schema:
+          minLength: 1
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactResponse'
+              example:
+                id: 3d510280-d1dd-455e-acf8-24dcfed2a548
+                firstName: John
+                lastName: Smith
+                email: john.smith@wow.com
+                address:
+                  address: 217, Main Street
+                  city: New York
+                  zipCode: 9823-0
+                  country: US
+                phone: +1 123 43234
+                dateOfBirth: 1989-09-01
+      deprecated: false
+components:
+  schemas:
+    Contact:
+      title: Contact
+      required:
+      - firstName
+      - lastName
+      - email
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        address:
+          $ref: '#/components/schemas/address'
+        phone:
+          type: string
+        dateOfBirth:
+          type: string
+          format: date
+    ContactResponse:
+      title: ContactResponse
+      allOf:
+      - $ref: '#/components/schemas/Contact'
+      - required:
+        - id
+        type: object
+        properties:
+          id:
+            type: string
+    SuccessResponse:
+      title: SuccessResponse
+      required:
+      - id
+      type: object
+      properties:
+        id:
+          type: string
+    address:
+      title: address
+      required:
+      - address
+      - city
+      - zipCode
+      - country
+      type: object
+      properties:
+        address:
+          type: string
+        city:
+          type: string
+        zipCode:
+          type: string
+        country:
+          type: string
+tags:
+- name: contacts
+  description: ''
